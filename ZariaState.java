@@ -16,7 +16,7 @@ public class ZariaState implements State {
 
 	@Override
 	public boolean isWinning() {
-		return node == target;
+		return node == target-1;
 	}
 
 	@Override
