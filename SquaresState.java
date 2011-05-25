@@ -2,18 +2,18 @@ import java.util.*;
 
 
 public class SquaresState implements State {
-	private int[][] board;
-	private int size;
-	private int zerox, zeroy;
-	private int[][] winning;
+	private byte[][] board;
+	private byte size;
+	private byte zerox, zeroy;
+	private byte[][] winning;
 	
-	public SquaresState(int[][] board) {
+	public SquaresState(byte[][] board) {
 		this.board = board;
-		this.size = board.length;
-		winning = new int[size][size];
-		for(int i = 0; i < size; i++) {
-			for(int j = 0; j < size; j++) {
-				winning[i][j] = 1 + j + i*size;
+		this.size = (byte) board.length;
+		winning = new byte[size][size];
+		for(byte i = 0; i < size; i++) {
+			for(byte j = 0; j < size; j++) {
+				winning[i][j] = (byte) (1 + j + i*size);
 				if(get(i, j) == 0) {
 					zerox = i;
 					zeroy = j;
@@ -64,48 +64,48 @@ public class SquaresState implements State {
 	
 	public SquaresState goUp() throws CloneNotSupportedException {
 		SquaresState newstate = (SquaresState)this.clone();
-		newstate.swap_with(zerox - 1, zeroy);
+		newstate.swap_with((byte) (zerox - 1), zeroy);
 		
 		return newstate;
 	}
 	
 	public SquaresState goDown() throws CloneNotSupportedException {
 		SquaresState newstate = (SquaresState)this.clone();
-		newstate.swap_with(zerox + 1, zeroy);
+		newstate.swap_with((byte) (zerox + 1), zeroy);
 		
 		return newstate;
 	}
 	
 	public SquaresState goLeft() throws CloneNotSupportedException {
 		SquaresState newstate = (SquaresState)this.clone();
-		newstate.swap_with(zerox, zeroy - 1);
+		newstate.swap_with(zerox, (byte) (zeroy - 1));
 		
 		return newstate;
 	}
 	
 	public SquaresState goRight() throws CloneNotSupportedException {
 		SquaresState newstate = (SquaresState)this.clone();
-		newstate.swap_with(zerox, zeroy + 1);
+		newstate.swap_with(zerox, (byte) (zeroy + 1));
 		
 		return newstate;
 	}
 	
 	public SquaresState clone() {
-		int[][] newboard = new int[size][size];
-		for(int i = 0; i < size; i++) {
-			for(int j = 0; j < size; j++) {
+		byte[][] newboard = new byte[size][size];
+		for(byte i = 0; i < size; i++) {
+			for(byte j = 0; j < size; j++) {
 				newboard[i][j] = board[i][j];
 			}
 		}
 		return new SquaresState(newboard);
 	}
 
-	private int get(int x, int y) {
+	private byte get(byte x, byte y) {
 		return board[x][y];
 	}
 	
-	public void swap_with(int px, int py) {
-		int tmp = board[px][py];
+	public void swap_with(byte px, byte py) {
+		byte tmp = board[px][py];
 		board[px][py] = 0;
 		board[zerox][zeroy] = tmp;
 		zerox = px;
@@ -129,18 +129,18 @@ public class SquaresState implements State {
 		return result;
 	}
 
-	public int[][] getBoard() {
+	public byte[][] getBoard() {
 		return board;
 	}
 	
-	public int getSize() {
+	public byte getSize() {
 		return size;
 	}
 	
 	public String toString() {
 		String str = "";
-		for(int i = 0; i < size; i++) {
-			for(int j = 0; j < size; j++) {
+		for(byte i = 0; i < size; i++) {
+			for(byte j = 0; j < size; j++) {
 				str += String.format("%2d ", board[i][j]);
 			}
 			str += "\n";
