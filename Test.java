@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class Test {
-	private static void printPath(Deque<State> path)
+	public static void printPath(Deque<State> path)
 	{
 		if (path != null)
 			for (State step : path)
