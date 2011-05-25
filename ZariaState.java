@@ -3,14 +3,12 @@ import java.util.Set;
 
 public class ZariaState implements State {
 	
-	static private int target = 3;
+	static private int target;
 	
-	static private int dicen = 2;
-	static private int[] dice = {3, 5};
+	static private int dicen;
+	static private int[] dice;
 	
-	static private boolean[][] adjMatrix = {{false,true,false},
-											{true,false,true},
-											{false,true,false}};
+	static private boolean[][] adjMatrix;
 	
 	private int node, dicei;
 
@@ -79,14 +77,16 @@ public class ZariaState implements State {
 		return neighs;
 	}
 	
-	public ZariaState() {
-		super();
+	public ZariaState(int nodes, int dicen, int[] dice, boolean[][] adjMatrix) {
+		target = nodes;
+		ZariaState.dicen = dicen;
+		ZariaState.dice = dice;
+		ZariaState.adjMatrix = adjMatrix;
 		this.node = 0;
 		this.dicei = 0;
 	}
 
 	public ZariaState(int node, int dicei) {
-		super();
 		this.node = node;
 		this.dicei = dicei;
 	}
