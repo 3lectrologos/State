@@ -45,4 +45,10 @@ public class GetToZeroState implements State {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString()
+	{
+		return Integer.toString(num);
+	}
 }

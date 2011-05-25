@@ -3,31 +3,36 @@ import java.util.*;
 public class BFSSolver implements Solver {
 	public BFSSolver() {}
 
-	public int solve(State initialState)
+	public Deque<State> solve(State initialState)
 	{
-		Set<State> visited = new HashSet<State>();
-		visited.add(initialState);
-		Queue<State> fringe = new LinkedList<State>();
+		Map<State,State> visited = new HashMap<State,State>();
+		visited.put(initialState, null);
+		List<State> fringe = new LinkedList<State>();
 		fringe.add(initialState);
-		Queue<State> nextFringe = new LinkedList<State>();
-		int moves = 0;
+		List<State> nextFringe = new LinkedList<State>();
 
 		while (true) {
 			for (State currState : fringe) {
-				if (currState.isWinning())
-					return moves;
+				if (currState.isWinning()) {
+					State s = currState;
+					Deque<State> path = new LinkedList<State>();
+					while (s != null) {
+						path.addFirst(s);
+						s = visited.get(s);
+					}
+					return path;
+				}
 				Set<State> nextStates = currState.nextStates();
 				for (State s : nextStates)
-					if (!visited.contains(s)) {
+					if (!visited.containsKey(s)) {
 						nextFringe.add(s);
-						visited.add(s);
+						visited.put(s, currState);
 					}
 			}
 			if (nextFringe.isEmpty())
-				return -1;
+				return null;
 			fringe = nextFringe;
 			nextFringe = new LinkedList<State>();
-			moves++;
 		}
 	}
 }

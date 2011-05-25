@@ -1,3 +1,5 @@
+import java.util.Deque;
+
 public interface Solver {
-	public int solve(State initialState);
+	public Deque<State> solve(State initialState);
 }
