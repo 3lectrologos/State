@@ -141,7 +141,7 @@ public class SquaresState implements State {
 		String str = "";
 		for(int i = 0; i < size; i++) {
 			for(int j = 0; j < size; j++) {
-				str += board[i][j];
+				str += String.format("%2d ", board[i][j]);
 			}
 			str += "\n";
 		}
