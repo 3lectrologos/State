@@ -4,20 +4,24 @@ import java.util.*;
 public class SquaresState implements State {
 	private int[][] board;
 	private int size;
+	private int zerox, zeroy;
+	private int[][] winning;
 	
 	public SquaresState(int[][] board) {
 		this.board = board;
 		this.size = board.length;
-	}
-	
-	public Point whereis(int block) {
+		winning = new int[size][size];
 		for(int i = 0; i < size; i++) {
 			for(int j = 0; j < size; j++) {
-				if(get(i, j) == block)
-					return new Point(i, j);
+				winning[i][j] = 1 + j + i*size;
+				if(get(i, j) == 0) {
+					zerox = i;
+					zeroy = j;
+				}
 			}
 		}
-		return null;
+		winning[size - 1][size - 1] = 0;
+		Arrays.deepToString(winning);
 	}
 	
 	public Set<State> nextStates() {
@@ -43,49 +47,45 @@ public class SquaresState implements State {
 	}
 	
 	public boolean canGoUp() {
-		return whereis(0).getX() > 0;
+		return zerox > 0;
 	}
 	
 	public boolean canGoDown() {
-		return whereis(0).getX() < size - 1;
+		return zerox < size - 1;
 	}
 	
 	public boolean canGoLeft() {
-		return whereis(0).getY() > 0;
+		return zeroy > 0;
 	}
 	
 	public boolean canGoRight() {
-		return whereis(0).getY() < size - 1;
+		return zeroy < size - 1;
 	}
 	
 	public SquaresState goUp() throws CloneNotSupportedException {
 		SquaresState newstate = (SquaresState)this.clone();
-		Point zero = whereis(0);
-		newstate.swap(zero, new Point(zero.getX() - 1, zero.getY()));
+		newstate.swap_with(zerox - 1, zeroy);
 		
 		return newstate;
 	}
 	
 	public SquaresState goDown() throws CloneNotSupportedException {
 		SquaresState newstate = (SquaresState)this.clone();
-		Point zero = whereis(0);
-		newstate.swap(zero, new Point(zero.getX() + 1, zero.getY()));
+		newstate.swap_with(zerox + 1, zeroy);
 		
 		return newstate;
 	}
 	
 	public SquaresState goLeft() throws CloneNotSupportedException {
 		SquaresState newstate = (SquaresState)this.clone();
-		Point zero = whereis(0);
-		newstate.swap(zero, new Point(zero.getX(), zero.getY() - 1));
+		newstate.swap_with(zerox, zeroy - 1);
 		
 		return newstate;
 	}
 	
 	public SquaresState goRight() throws CloneNotSupportedException {
 		SquaresState newstate = (SquaresState)this.clone();
-		Point zero = whereis(0);
-		newstate.swap(zero, new Point(zero.getX(), zero.getY() + 1));
+		newstate.swap_with(zerox, zeroy + 1);
 		
 		return newstate;
 	}
@@ -104,14 +104,15 @@ public class SquaresState implements State {
 		return board[x][y];
 	}
 	
-	public void swap(Point p1, Point p2) {
-		int tmp = board[p1.getX()][p1.getY()];
-		board[p1.getX()][p1.getY()] = board[p2.getX()][p2.getY()];
-		board[p2.getX()][p2.getY()] = tmp;
+	public void swap_with(int px, int py) {
+		int tmp = board[px][py];
+		board[px][py] = 0;
+		board[zerox][zeroy] = tmp;
+		zerox = px;
+		zeroy = py;
 	}
 	
 	public boolean isWinning() {
-		int[][] winning  = {{1, 2, 3}, {4, 5, 6}, {7, 8, 0}};
 		return Arrays.deepEquals(board, winning);
 	}
 	
@@ -120,10 +121,14 @@ public class SquaresState implements State {
 		       Arrays.deepEquals(((SquaresState)o).getBoard(), board);
 	}
 	
+	@Override
 	public int hashCode() {
-		return 42;
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + Arrays.deepHashCode(board);
+		return result;
 	}
-	
+
 	public int[][] getBoard() {
 		return board;
 	}

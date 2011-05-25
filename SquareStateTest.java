@@ -81,10 +81,18 @@ public class SquareStateTest extends TestCase {
 		assertTrue(set.isEmpty());
 	}
 	
-	public void testSolve() {
-		State initState = new SquaresState(new int[][] {{1, 2, 3}, {4, 5, 6}, {7, 0, 8}});
-		Solver solver = new BFSSolver();
-		
-		System.out.println(solver.solve(initState));
+	public void testSolve_9_simple() {
+		State initState = new SquaresState(new int[][] {{1, 6, 2}, {4, 0, 3}, {7, 5, 8}});
+		Test.printPath(new BFSSolver().solve(initState));
+	}
+	
+	public void testSolve_9_hard() {
+		State initState = new SquaresState(new int[][] {{1, 6, 2}, {4, 5, 7}, {0, 8, 3}});
+		Test.printPath(new BFSSolver().solve(initState));
+	}
+	
+	public void testSolve_15_simple() {
+		State initState = new SquaresState(new int[][] {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}, {13, 14, 0, 15}});
+		Test.printPath(new BFSSolver().solve(initState));
 	}
 }
