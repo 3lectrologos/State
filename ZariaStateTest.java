@@ -1,5 +1,8 @@
 import junit.framework.TestCase;
 
+// This class is a JUnit test-case container. Eclipse knows how to run these without a main function.
+// Use File->New->JUnit testcase to create one, just like a class!
+// These are the tests from the description of the Zaria exercise.
 public class ZariaStateTest extends TestCase {
 
 	public void testSolve_1() {
