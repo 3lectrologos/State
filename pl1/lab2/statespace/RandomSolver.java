@@ -1,4 +1,6 @@
+package pl1.lab2.statespace;
 import java.util.*;
+
 
 // A very simple (and inefficient) solver that just tries moves at random.
 public class RandomSolver implements Solver {

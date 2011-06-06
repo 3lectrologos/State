@@ -1,5 +1,8 @@
+package pl1.lab2.zaria;
 import java.util.HashSet;
 import java.util.Set;
+
+import pl1.lab2.statespace.State;
 
 // ZariaState is a state to solve the Zaria Exercise from 2009
 // http://courses.softlab.ntua.gr/pl1/2009a/Exercises/exerc09-2.pdf

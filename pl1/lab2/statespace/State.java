@@ -1,3 +1,4 @@
+package pl1.lab2.statespace;
 import java.util.Set;
 
 // State: The representation of a game's state, and common operations on that

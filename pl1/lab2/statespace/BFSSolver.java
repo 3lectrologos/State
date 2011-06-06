@@ -1,4 +1,6 @@
+package pl1.lab2.statespace;
 import java.util.*;
+
 
 // A solver that implements a Breadth-First Search on the state space.
 // Guaranteed to return a path of minimum length.

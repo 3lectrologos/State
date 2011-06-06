@@ -1,4 +1,6 @@
+package pl1.lab2.statespace;
 import java.util.Deque;
+
 
 // Solver: Implementation of a graph search algorithm in the state space of some
 // game.
